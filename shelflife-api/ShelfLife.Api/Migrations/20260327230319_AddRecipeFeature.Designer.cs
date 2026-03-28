@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfLife.Api.Data;
@@ -11,9 +12,11 @@ using ShelfLife.Api.Data;
 namespace ShelfLife.Api.Migrations
 {
     [DbContext(typeof(ShelfLifeDbContext))]
-    partial class ShelfLifeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260327230319_AddRecipeFeature")]
+    partial class AddRecipeFeature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

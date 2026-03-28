@@ -18,6 +18,8 @@ public class ShelfLifeDbContext : DbContext
     public DbSet<UserHousehold> UserHouseholds { get; set; }
     public DbSet<ShoppingList> ShoppingLists { get; set; }
     public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -167,6 +169,47 @@ public class ShelfLifeDbContext : DbContext
                 .WithMany(fp => fp.ShoppingListItems)
                 .HasForeignKey(e => e.FoodProductId)
                 .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        // Recipe entity configuration
+        modelBuilder.Entity<Recipe>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Instructions).IsRequired().HasMaxLength(5000);
+            entity.Property(e => e.PrepTimeMinutes).IsRequired();
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            // Foreign key relationship
+            entity.HasOne(e => e.Household)
+                .WithMany(h => h.Recipes)
+                .HasForeignKey(e => e.HouseholdId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // RecipeIngredient entity configuration
+        modelBuilder.Entity<RecipeIngredient>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Quantity).HasPrecision(10, 3);
+            entity.Property(e => e.UnitOfMeasure).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            // Foreign key relationships
+            entity.HasOne(e => e.Recipe)
+                .WithMany(r => r.RecipeIngredients)
+                .HasForeignKey(e => e.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.FoodProduct)
+                .WithMany(fp => fp.RecipeIngredients)
+                .HasForeignKey(e => e.FoodProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Unique constraint to prevent duplicate ingredients in the same recipe
+            entity.HasIndex(e => new { e.RecipeId, e.FoodProductId }).IsUnique();
         });
     }
 }

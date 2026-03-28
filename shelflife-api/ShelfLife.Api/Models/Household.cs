@@ -12,4 +12,5 @@ public class Household
     public ICollection<UserHousehold> UserHouseholds { get; set; } = new List<UserHousehold>();
     public ICollection<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>();
     public ICollection<ShoppingList> ShoppingLists { get; set; } = new List<ShoppingList>();
+    public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

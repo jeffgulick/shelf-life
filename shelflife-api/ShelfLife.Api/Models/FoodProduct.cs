@@ -17,4 +17,5 @@ public class FoodProduct
     public Category Category { get; set; } = null!;
     public ICollection<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>();
     public ICollection<ShoppingListItem> ShoppingListItems { get; set; } = new List<ShoppingListItem>();
+    public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
 }
