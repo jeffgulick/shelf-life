@@ -14,4 +14,6 @@ public class User
     public ICollection<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>();
     public ICollection<ShoppingList> ShoppingLists { get; set; } = new List<ShoppingList>();
     public ICollection<UserHousehold> UserHouseholds { get; set; } = new List<UserHousehold>();
+    public ICollection<Recipe> CreatedRecipes { get; set; } = new List<Recipe>();
+    public ICollection<SavedRecipe> SavedRecipes { get; set; } = new List<SavedRecipe>();
 }

@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shelflife-api", "shelflife-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelfLife.Api", "shelflife-api\ShelfLife.Api\ShelfLife.Api.csproj", "{397E1927-CEA4-CD07-C6CB-28CD1ABA2ACF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelfLife.Api.Tests", "shelflife-api\ShelfLife.Api.Tests\ShelfLife.Api.Tests.csproj", "{B6E7F98C-2FA5-4B8D-9A15-7F9C8E6D4A3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,12 +18,17 @@ Global
 		{397E1927-CEA4-CD07-C6CB-28CD1ABA2ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{397E1927-CEA4-CD07-C6CB-28CD1ABA2ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{397E1927-CEA4-CD07-C6CB-28CD1ABA2ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E7F98C-2FA5-4B8D-9A15-7F9C8E6D4A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E7F98C-2FA5-4B8D-9A15-7F9C8E6D4A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E7F98C-2FA5-4B8D-9A15-7F9C8E6D4A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E7F98C-2FA5-4B8D-9A15-7F9C8E6D4A3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{397E1927-CEA4-CD07-C6CB-28CD1ABA2ACF} = {A48C0271-AE28-1336-797D-5949B5715266}
+		{B6E7F98C-2FA5-4B8D-9A15-7F9C8E6D4A3B} = {A48C0271-AE28-1336-797D-5949B5715266}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68E6DAD9-BD8C-4BDB-A069-313226081DBB}

@@ -14,6 +14,15 @@
 - Controller endpoints must return `ActionResult<T>`.
 - **Strictly avoid** raw SQL; use LINQ and EF Core methods.
 - Use Dependency Injection for all services and repositories.
+- **NEVER use AutoMapper or third-party mappers**. All mapping between Domain Entities and DTOs must be done via static `ToDto()` extension methods in `MappingExtensions` class to maintain high performance and compile-time safety.
+
+## Data Architecture & Ownership
+### Global Recipe/Creator Model
+- **Recipes are owned by Users (Creators)**, not Households
+- Recipes are **globally discoverable** when `IsPublic = true`
+- Use `SavedRecipe` junction table for users saving recipes to personal cookbooks
+- **Recipe Creator relationship:** `Recipe.CreatorId` → `User.Id` (Restrict delete)
+- **Personal Cookbook:** Users save public recipes via `SavedRecipe` table
 
 ## Frontend Guidelines (React)
 - Use **Functional Components** with Hooks only.

@@ -2,23 +2,25 @@ namespace ShelfLife.Api.Dtos;
 
 public record RecipeDto(
     int Id,
-    int HouseholdId,
+    int CreatorId,
     string Title,
     string Instructions,
     int PrepTimeMinutes,
+    bool IsPublic,
     DateTime CreatedAt,
     DateTime UpdatedAt
 );
 
 public record CreateRecipeDto(
-    int HouseholdId,
     string Title,
     string Instructions,
-    int PrepTimeMinutes
+    int PrepTimeMinutes,
+    bool? IsPublic = false
 );
 
 public record UpdateRecipeDto(
     string Title,
     string Instructions,
-    int PrepTimeMinutes
+    int PrepTimeMinutes,
+    bool IsPublic
 );

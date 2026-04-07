@@ -20,6 +20,7 @@ public class ShelfLifeDbContext : DbContext
     public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+    public DbSet<SavedRecipe> SavedRecipes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -178,13 +179,33 @@ public class ShelfLifeDbContext : DbContext
             entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Instructions).IsRequired().HasMaxLength(5000);
             entity.Property(e => e.PrepTimeMinutes).IsRequired();
+            entity.Property(e => e.IsPublic).HasDefaultValue(false);
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // Foreign key relationship
-            entity.HasOne(e => e.Household)
-                .WithMany(h => h.Recipes)
-                .HasForeignKey(e => e.HouseholdId)
+            // Foreign key relationship to User (Creator)
+            entity.HasOne(e => e.Creator)
+                .WithMany(u => u.CreatedRecipes)
+                .HasForeignKey(e => e.CreatorId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // SavedRecipe entity configuration (many-to-many junction table)
+        modelBuilder.Entity<SavedRecipe>(entity =>
+        {
+            // Composite primary key
+            entity.HasKey(e => new { e.UserId, e.RecipeId });
+            entity.Property(e => e.SavedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            // Foreign key relationships
+            entity.HasOne(e => e.User)
+                .WithMany(u => u.SavedRecipes)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Recipe)
+                .WithMany(r => r.SavedRecipes)
+                .HasForeignKey(e => e.RecipeId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
